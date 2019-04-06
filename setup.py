@@ -25,6 +25,6 @@ setup(
         "notebook==5.7.6",
     ],
 
-    author="Christof Fehrman",
-    maintainer='Christof Fehrman',
+    author="Elena",
+    maintainer='Elena',
 )
