@@ -23,6 +23,8 @@ setup(
         "matplotlib==2.2.2",
         "seaborn==0.9.0",
         "notebook==5.7.6",
+        "natsort==6.0.0",
+        "h5py==2.8.0"
     ],
 
     author="Elena",
