@@ -17,9 +17,14 @@ setup(
     description="",
     long_description="",
     install_requires=[
-        "numpy>=1.10",
+        "numpy==1.16.0",
+        "scipy==1.2.0",
+        "pandas==0.24.1",
+        "matplotlib==2.2.2",
+        "seaborn==0.9.0",
+        "notebook==5.7.6",
     ],
 
-    author="Elena",
-    maintainer='Elena',
+    author="Christof Fehrman",
+    maintainer='Christof Fehrman',
 )

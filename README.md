@@ -1,55 +1,40 @@
 
-# Computational Neuroscience Project Skeleton
+# CRCNS HC-19 Pre-Processed Data
 
-This repository is a skeleton Python package that students in PSYC 5270 can use to get started on their data exploration assignments.
+This repository contains the pre-processed data from the hc-19 dataset on CRCNS.org, and were provided by Davide Ciliberti, Frédéric Michon and Fabian Kloosterman.
 
-## Getting started
+## To get the data
 
-Start by cloning the repository: `git clone https://github.com/melizalab/comp-neurosci-skeleton.git`
+The data can be accessed at https://crcns.org/data-sets/hc/hc-19/about-hc-19:
 
-This will create a new directory, `comp-neurosci-skeleton`, containing the following items:
+-The only files that are utilized in this repository are the nine pre-processed hdf5 data files.
 
-- `README.md`: this file
-- `setup.py`:  package description file. You will need to edit this.
-- `requirements.txt`: a list of packages your code depends on
-- `.gitignore`: a list of files git will ignore when telling you what's changed
-- `src`:       a directory where you will put your python code
-- `test`:      a directory where you will put test code
-- `data`:      a directory where your data will live
-- `build`:     a directory where processed output from your analysis will live
+-If downloading all files from CRCNS, these data will be found in data/PreprocessedDatasets folder.
 
-Choose a new name for your package. For the PSYC 5270 assignment, use something like `crcns-datasetid-computingid`. Rename the top-level directory (`comp-neurosci-skeleton`) and edit `setup.py` to set the new name and other identifying information.
+-Each folder in the PreprocessedDatasets file will have a label beginning with dataset_2017_08_, and in each you will find the needed hdf5 file for that particular run or day.
 
-Now you need to create a github repository of your own. Go to [https://github.com/new](https://github.com/new). Give the repository your chosen name and a description, then click Create Repository. **DO NOT** check the box to initialize the repository with a readme. Ignore the instructions on how to set up your repository, but make a note of the address. It will look something like `https://github.com/dmeliza/dummy.git`
+-The hdf5 files of the same day, all have the same name (i.e. the prerun, sleep, and postrun hdf5 files for August 23rd are all named 2017-08-23_09-42-01.hdf5).
 
-Finally, set your local directory to track the github repository by running the following commands in your working directory. Replace the repository address in the code below with the one for your project.
+-The script to turn the data into a dict assume that these data files have been renamed with -prerun,-sleep,or -postrun added to the end of the name (e.g. 2017-08-23_09-42-01-postrun.hdf5).
 
-``` shell
-git remote rm origin
-git remote add origin https://github.com/dmeliza/dummy.git
-git push -u origin master
-```
 
-If you get an error on the last command, it's probably because you let github initialize your repository. You'll have to delete and re-create the repository on github and then run the last command again.
+## To process the data
 
-## Next steps
+To process the hdf5 files, first run the script in src/kloosterman_function.py:
 
-Edit `data/README.md` to describe how to retrieve data. Better yet, write a script.
+-This function was developed by Fabian Kloosterman and is available on the bitbucket repository Ciliberti Elife2018 RealTimeReplay, with links and detailed description of location in the CRCNS hc-19 repository.
+ 
+-This script will create the read_dataset function which reads the hdf5 files in python.
 
-Edit `requirements.txt` to add any needed dependencies, then create a virtual environment and install the dependencies as follows:
+To put the desired data into a dictonary, use the function in the src/io.py folder. This function allows you to select a partition of the data to analyze:
 
-``` shell
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
+- "all" puts all nine files into a dictionary ordered by day and level of run (i.e. pre, sleep, post)
+- "day1" puts the three pre, sleep, post files of August 23rd in a dictionary
+- "day2" puts the three pre, sleep, post files of August 24th in a dictionary
+- "day3" puts the three pre, sleep, post files of August 25th in a dictionary
+- "prerun" puts the three preruns files from August 23rd-25th in a dictionary
+- "sleep" puts the three sleep files from August 23rd-25th in a dictionary
+- "postrun" puts the three postrun files from August 23rd-25th in a dictionary
 
-Alternatively, if you're using anaconda, create a new environment and run the following to install dependencies:
+-The function also defaults to using the read_dataset function on all nine of the hdf5 files. Note to change the file path in the function.
 
-``` shell
-conda install git numpy scipy pandas matplotlib notebook
-```
-
-Install the project in development mode by running `python setup.py develop`. If you use notebooks, this will ensure that you can access your modules.
-
-Edit this file to describe your actual project.

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 """
 Created on Tue Sep  6 16:35:33 2016
 
@@ -117,68 +117,3 @@ def check_ephys_dataset( dataset, nlow=10 ):
             "Make sure dataset was created correctly.")
 
             
-# -*- coding: utf-8 -*-
-# -*- mode: python -*-
-"""
-Code to get data
-"""
-def read_neuron(partition):
-    data_neuron=[]
-    import glob
-    from zipfile import ZipFile 
-    import numpy as np
-    if (partition=="all"):
-        for name in glob.glob('data/*.zip'): 
-            with ZipFile(name, 'r') as zip: 
-                zip.extractall('data/unzippedfiles')
-            for name in glob.glob('data/unzippedfiles/*.hdf5'):
-                file=read_dataset(name)
-                data_neuron.append(file[1])          
-        Day1={'first run':data_neuron[0],
-              'rest':data_neuron[2],
-              'second run':data_neuron[1]}
-        Day2={'first run':data_neuron[4],
-              'rest':data_neuron[5],
-              'second run':data_neuron[3]}
-        Day3={'first run':data_neuron[7],
-              'rest':data_neuron[8],
-              'second run':data_neuron[6]}
-        neuron_dict_all={'Day':{'08/23/2017':Day1,
-                     '08/24/2017':Day2,
-                     '08/25/2017':Day3}} 
-        np.save('data/neuron_dict_all.npy', neuron_dict_all)
-    elif (partition=="day1"):
-        for name in glob.glob('data/2017-08-23*.zip'): 
-            with ZipFile(name, 'r') as zip: 
-                zip.extractall('data/unzippedfiles')
-            for name in glob.glob('data/unzippedfiles/*.hdf5'):
-                file=read_dataset(name)
-                data_neuron.append(file[1])
-        Day1={'first run':data_neuron[0],
-              'rest':data_neuron[2],
-              'second run':data_neuron[1]}
-        np.save('data/neuron_dict_day1.npy',Day1)   
-    elif (partition=="day2"):
-        for name in glob.glob('data/2017-08-24*.zip'): 
-            with ZipFile(name, 'r') as zip: 
-                zip.extractall('data/unzippedfiles')
-            for name in glob.glob('data/unzippedfiles/*.hdf5'):
-                file=read_dataset(name)
-                data_neuron.append(file[1])
-        Day2={'first run':data_neuron[0],
-              'rest':data_neuron[2],
-              'second run':data_neuron[1]}
-        np.save('data/neuron_dict_day2.npy',Day2)  
-    elif (partition=="day3"):
-        for name in glob.glob('data/2017-08-25*.zip'): 
-            with ZipFile(name, 'r') as zip: 
-                zip.extractall('data/unzippedfiles')
-            for name in glob.glob('data/unzippedfiles/*.hdf5'):
-                file=read_dataset(name)
-                data_neuron.append(file[1])
-        Day3={'first run':data_neuron[0],
-              'rest':data_neuron[2],
-              'second run':data_neuron[1]}
-        np.save('data/neuron_dict_day3.npy',Day3)
-    else:
-        print("Incorrect Arguement Input, Try: all, day1, day2, day3")
